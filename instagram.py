@@ -1,4 +1,7 @@
 import time
+import os
+import random
+
 import config
 
 import autoit
@@ -143,14 +146,26 @@ class Autogram:
 
 
 if __name__ == '__main__':
-    ig = Autogram('<USERNAME>', '<PASSWORD>')
+    ig = Autogram(config.DEFAULT_USERNAME, config.DEFAULT_PASSWORD)
     ig.open_instagram()
     ig.login()
     ig.popup_close_save_login_info()
     ig.popup_close_turn_on_notifications()
     ig.popup_close_add_to_home_screen()
 
-    description = 'Automatically upload this image using Code! \nSo I\'ve already got bored of positing to Instagram so I created a script to do it for me #automation #python \nGithub: https://github.com/IVIURRAY/Autogram'
-    ig.upload_image(os.path.normpath('C:/Users/HAM/AppData/Local/Temp/Autogram/posts/image-sample-upload.jpg'), description=description)
+    i = 0
+    while True:
+        i += 1
+        img_name = config.POSTS_DIR + '/image' + str(i) + '.jpg'
+        print img_name
+        try:
+            ig.upload_image(os.path.normpath(img_name), description=img_name)
+        except:
+            print "could not upload image " + img_name
+            break
+        t = random.randint(15, 60)
+        print "Sleeping %d minutes..." % t
+        time.sleep(t)
+
     ig.popup_close_turn_on_notifications()
     ig.profile_page()
