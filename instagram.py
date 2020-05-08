@@ -153,18 +153,22 @@ if __name__ == '__main__':
     ig.popup_close_turn_on_notifications()
     ig.popup_close_add_to_home_screen()
 
+    image_base_name = "image"
     i = 0
+    print(f"POST_DIR: {config.POSTS_DIR}")
     while True:
         i += 1
-        img_name = config.POSTS_DIR + '/image' + str(i) + '.jpg'
-        print img_name
+        rel_img_name = f"{image_base_name}{str(i)}.jpg"
+        print(f"rel image name: {rel_img_name}")
+        img_name = f"{config.POSTS_DIR}/{rel_img_name}"
+        print(f"full image name: {img_name}")
         try:
             ig.upload_image(os.path.normpath(img_name), description=img_name)
         except:
-            print "could not upload image " + img_name
+            print(f"could not upload image {img_name}")
             break
         t = random.randint(15, 60)
-        print "Sleeping %d minutes..." % t
+        print(f"Sleeping {t} minutes...")
         time.sleep(t)
 
     ig.popup_close_turn_on_notifications()
