@@ -25,7 +25,7 @@ def setup():
         zip_file = config.CHROME_DIR + '/chromedriver.zip'
         print('Downloading chromedriver zip...')
         with open(zip_file, 'wb') as chromedriver_zip:
-            r = pool.request('GET', 'https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_win32.zip')
+            r = pool.request('GET', 'https://chromedriver.storage.googleapis.com/81.0.4044.138/chromedriver_win32.zip')
             chromedriver_zip.write(r.data)
             r.release_conn()
         print('Extracting chromdriver zip....')
